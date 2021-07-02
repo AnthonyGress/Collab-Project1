@@ -3,12 +3,12 @@ var clickMeButtonEl = document.querySelector('#click-button');
 var testBtn = document.querySelector('#testBtn')
 // html ID
 var collectionInput = document.querySelector('#colltion-format');
-
+// Title, Date, Subject, Description
 
   var getLibraryData = function () {
       console.log("Made it here");
     collectionInput = "maps";
-    searchInput = "truman"
+    searchInput = "trump"
     var apiUrl = 'https://www.loc.gov/' + collectionInput + '?q='+ searchInput + '&fo=json';
   
     fetch(apiUrl).then(function (response) {
@@ -33,26 +33,23 @@ var collectionInput = document.querySelector('#colltion-format');
     }
   
     for (var i = 0; i < dataArray.length; i++) {
-      var issueEl = document.createElement('a');
-      issueEl.classList = 'list-item flex-row justify-space-between align-center';
-      issueEl.setAttribute('href', dataArray[i].something);
-      issueEl.setAttribute('target', '_blank');
+      var infoEl = document.createElement('a');
+      infoEl.classList = 'list-item flex-row justify-space-between align-center';
+      var infoURL = dataArray.featured_items[i].url;
+      infoEl.setAttribute('href', `https://www.loc.gov/${infoURL}`);
+      infoEl.setAttribute('target', '_blank');
   
       var titleEl = document.createElement('span');
-      titleEl.textContent = dataArray[i].title;
-      issueEl.appendChild(titleEl);
+      titleEl.textContent = dataArray.featured_items[i].title;
+      infoEl.appendChild(titleEl);
   
-      var typeEl = document.createElement('span');
+      var descriptionEl = document.createElement('span');
+      descriptionEl.textContent = dataArray.featured_items[i].title;
+        
   
-      if (issues[i].pull_request) {
-        typeEl.textContent = '(Pull request)';
-      } else {
-        typeEl.textContent = '(Issue)';
-      }
+      infoEl.appendChild(typeEl);
   
-      issueEl.appendChild(typeEl);
-  
-      issueContainerEl.appendChild(issueEl);
+      infoContainerEl.appendChild(infoEl);
     }
   };
   
